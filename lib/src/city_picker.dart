@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:city_picker/src/result.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'datas.dart';
 
@@ -16,9 +16,9 @@ Future<CityResult> showCityPicker(
   var result = showDialog(
     context: context,
     builder: (c) => CityPicker(
-          params: cityData,
-          initResult: initCity,
-        ),
+      params: cityData,
+      initResult: initCity,
+    ),
   );
 
   result.then((v) {
@@ -31,6 +31,7 @@ Future<CityResult> showCityPicker(
 class CityPicker extends StatefulWidget {
   final Map<String, dynamic> params;
   final CityResult initResult;
+
   const CityPicker({
     Key key,
     this.params,
@@ -51,6 +52,7 @@ class _CityPickerState extends State<CityPicker> {
   Map<String, dynamic> get datas => widget.params;
 
   List<dynamic> get provinceList => datas["provinceList"];
+
   String proviceNameByIndex(int index) => provinceList[index]["name"];
 
   List<dynamic> get cityList => provinceList[provinceIndex]["cityList"];
@@ -131,15 +133,12 @@ class _CityPickerState extends State<CityPicker> {
 
     return Container(
       color: Colors.white,
-      height: 40.0,
       child: Row(
         children: <Widget>[
           buildButton("取消", () {
             Navigator.pop(context);
           }),
-          Expanded(
-            child: Container(),
-          ),
+          Spacer(),
           buildButton("确定", () {
             cityResult.province = proviceNameByIndex(provinceIndex);
             cityResult.city = cityList[cityIndex]["name"];
